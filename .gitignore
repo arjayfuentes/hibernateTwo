@@ -1,0 +1,7 @@
+app/target
+core/model/target
+core/service/target
+core/dao/target
+infra/persistence/target
+infra/buildtools/target
+utilities/target
