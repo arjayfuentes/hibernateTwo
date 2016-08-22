@@ -1,45 +1,42 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.exercise.hibernate1</groupId>
+    <groupId>com.exercise.hibernate2</groupId>
     <artifactId>core</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-
-  <groupId>com.exercise.hibernate1.core</groupId>
+  <groupId>com.exercise.hibernate2.core</groupId>
   <artifactId>dao</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+
   <dependencies>
 	  <dependency>
-		  <groupId>com.exercise.hibernate1.core</groupId>
+	  <groupId>com.exercise.hibernate2.core</groupId>
   		<artifactId>model</artifactId>
   		<version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.exercise.hibernate1</groupId>
-      <artifactId>utilities</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-	  <dependency>
-	  	<groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-	  	<version>5.2.1.Final</version>
 	  </dependency>
 	  <dependency>
-		<groupId>com.exercise.hibernate1.infra</groupId>
+		  <groupId>com.exercise.hibernate2</groupId>
+  		<artifactId>utilities</artifactId>
+  		<version>1.0-SNAPSHOT</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-core</artifactId>
+    	<version>4.3.7.Final</version>
+	  </dependency>
+	  <dependency>
+		<groupId>com.exercise.hibernate2.infra</groupId>
   		<artifactId>persistence</artifactId>
   		<version>1.0-SNAPSHOT</version>
 	  </dependency>
 	  <dependency>
     	<groupId>org.postgresql</groupId>
     	<artifactId>postgresql</artifactId>
-    	<version>9.3-1101-jdbc41</version>
-	 </dependency>
+    	<version>9.4.1208.jre7</version>
+	</dependency>
   </dependencies>
-
 </project>
