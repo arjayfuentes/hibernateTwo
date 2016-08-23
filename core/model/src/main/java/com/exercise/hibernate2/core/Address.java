@@ -1,8 +1,15 @@
 package com.exercise.hibernate2.core;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE ,region="Address")
 @Entity
 @Table(name="Address")
 public class Address extends PersistentObject{

@@ -1,21 +1,18 @@
 package com.exercise.hibernate2.core;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import java.io.Serializable;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE ,region="Role")
 @Entity
 @Table(name = "Role")
+
 public class Role extends  PersistentObject{
 
 	@Column(name="roleName")
 	private String roleName;
-
 
 	public Role(){}
 

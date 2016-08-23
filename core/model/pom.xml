@@ -19,7 +19,6 @@
     	<artifactId>hibernate-core</artifactId>
     	<version>4.3.7.Final</version>
 	</dependency>
-	  <!-- http://mvnrepository.com/artifact/org.hibernate/ejb3-persistence -->
 	<dependency>
     	<groupId>org.hibernate</groupId>
     	<artifactId>ejb3-persistence</artifactId>
@@ -31,5 +30,10 @@
 		<artifactId>hibernate-ehcache</artifactId>
 		<version>4.3.7.Final</version>
 	</dependency>
+	  <dependency>
+		  <groupId>net.sf.ehcache</groupId>
+		  <artifactId>ehcache-core</artifactId>
+		  <version>2.6.11</version>
+	  </dependency>
   </dependencies>
 </project>

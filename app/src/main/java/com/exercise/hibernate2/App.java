@@ -123,7 +123,7 @@ public class App{
 			System.out.println("\t  |    7  - Update Role in Database        |");
 			System.out.println("\t  |    8  - Back to Main menu              |");
 			System.out.println("\t  ==========================================\n");
-			int choice = check.inputNumber("Role Choice ", 1, 8);
+			int choice = check.inputNumber("Role Choice ", 1, 9);
 			switch (choice) {
 				case 1:
 					options.viewPersonRoles();

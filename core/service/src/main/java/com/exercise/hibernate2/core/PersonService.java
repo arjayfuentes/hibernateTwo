@@ -41,21 +41,14 @@ public class PersonService {
 
 	//option 5 GWA
 	public List<Person> getPersonsGwa(){
-		List <Person> persons = personDao.getPersons();
+		List <Person> persons = personDao.getPersons("id");
 		persons.sort((Person o1, Person o2)-> (int) ((o1.getGwa()*1000) - (o2.getGwa()*1000)));  //sort using lambda
 		return persons;
 	}
 
 	//option 5 datehired and last name. Also use for display person by id
 	public List<Person> getPersons(String order){
-		List<Person> persons = new ArrayList<Person>();
-		if (order.equals("last_name")){
-			persons = personDao.getPersons("last_name");
-		} else if (order.equals("date_hired")){
-			persons = personDao.getPersons("date_hired");
-		} else {
-			persons = personDao.getPersons("id");
-		}
+		List<Person> persons = personDao.getPersons(order);
 		return persons;
 	}
 

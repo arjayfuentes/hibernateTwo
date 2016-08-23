@@ -38,7 +38,7 @@ public class Options {
 
 	//option 2  done
     public void addPerson(){
-      //displayPersons();
+        displayPersons();
         Person person = addPersonInfo();
         Set<Contact> contacts = addContactsNewPerson();
         Set <Role> roles = addRolesNewPerson();
@@ -141,18 +141,16 @@ public class Options {
 				System.out.println("\n   LIST PERSON BY GWA");
 				break;
 			case 2:
-				order = "date_hired";
+				order = "dateHired";
 				persons = personService.getPersons(order);
 				System.out.println("\n   LIST PERSONS ORDER BY DATE HIRED");
 				break;
-			case 3:
-				order = "last_name";
+			default:
+				order = "lastName";
 				persons = personService.getPersons(order);
 				System.out.println("\n   LIST PERSONS ORDER BY LAST NAME");
 				break;
-			default:
-				break;
-		}
+        }
 		displayPersonsList(persons);
 	}
 
@@ -246,7 +244,7 @@ public class Options {
 
 
    public Address addAddressInfo(){
-     System.out.println("\n\n======= Input Basic Information ======");
+     System.out.println("\n\n======= Input Address Information ======");
      int houseNo = check.inputNumber("House number");
      String street = check.inputString("Street");
      String barangay = check.inputString("Barangay");
@@ -295,7 +293,7 @@ public class Options {
             System.out.println("\t  ==========================================\n");
         }
         else{
-            System.out.println("\t  ============== PERSON'S CONTACTS =============");
+            System.out.println("\n\t  ============== PERSON'S CONTACTS =============");
             System.out.printf("\t  |  %-12s %-8s    %-12s     |\n","Contact ID","Type","Value");
             System.out.println("\t  ----------------------------------------------");
             for(Contact c : contacts){
@@ -409,6 +407,7 @@ public class Options {
         Set<Contact> contacts = new HashSet<Contact>();
         boolean continueAdd = true;
         while(continueAdd==true){
+            System.out.println("\n\n======= Input Contact Information ======");
             int type =check.inputNumber("choose type of contact 1-LANDLINE 2-MOBILE 3-EMAIL. ",1 ,3);
             Contact contact = createContact(type);
             contacts.add(contact);
@@ -421,7 +420,7 @@ public class Options {
     /*------------------------- ROLE MENU ---------------------------- */
 
     public void displayPersonRoles(long personId) {
-        List<Role> personRoles = roleService.getPersonRoles(personId);
+        Set<Role> personRoles = roleService.getPersonRoles(personId);
         if (personRoles.size() != 0) {
             System.out.println("\n\t  =============== PERSON'S ROLES ===============");
             for (Role r : personRoles) {
@@ -559,7 +558,8 @@ public class Options {
         viewRoles();
         boolean continueAdd = true;
         while(continueAdd==true) {
-            long roleId = roleService.checkInputRole("roleId you want to add to person");
+            System.out.println("\n\n======= Input Role Information ======");
+            long roleId = roleService.checkInputRole("roleId you want to add to person. Choose from the above options");
             role = roleService.getRole(roleId);
             personRoles.add(role);
             continueAdd=check.inputYesOrNo("continue add role to this person?");

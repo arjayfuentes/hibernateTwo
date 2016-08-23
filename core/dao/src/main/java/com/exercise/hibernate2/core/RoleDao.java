@@ -1,10 +1,15 @@
 package com.exercise.hibernate2.core;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 import com.exercise.hibernate2.HibernateUtil;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 
 public class RoleDao {
 
@@ -15,8 +20,10 @@ public class RoleDao {
         List<Role> roles = new ArrayList<Role>();
         try {
             tx = session.beginTransaction();
-            Criteria cr = session.createCriteria(Role.class);
-            roles = cr.list();
+            Criteria criteria = session.createCriteria(Role.class)
+                    .setCacheable(true)
+                    .addOrder(Order.asc("id"));
+            roles = criteria.list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -33,7 +40,10 @@ public class RoleDao {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            role = (Role) session.get(Role.class, roleId);
+            Criteria criteria = session.createCriteria(Role.class)
+                .add(Restrictions.eq("id",roleId))
+                .setCacheable(true);
+            role = (Role) criteria.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -44,14 +54,16 @@ public class RoleDao {
         return role;
     }
 
-    public List<Role> getPersonRoles(long personId) {
+    public Set <Role> getPersonRoles(long personId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
-        List <Role> roles = null;
+        Set <Role> roles = new HashSet<>();
         try {
             tx = session.beginTransaction();
-            Person person = (Person) session.get(Person.class,personId);
-            roles = new ArrayList<Role>();
+            Criteria criteria = session.createCriteria(Person.class);
+            criteria.add(Restrictions.eq("id",personId))
+                    .setCacheable(true);
+            Person person= (Person) criteria.uniqueResult();
             roles.addAll(person.getRoles());
             tx.commit();
         } catch (HibernateException e) {
@@ -182,5 +194,21 @@ public class RoleDao {
         }
     }
 
+    public Role sample(long roleId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        Role role = null;
+        try {
+            tx = session.beginTransaction();
+            role = (Role) session.get(Role.class, roleId);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return role;
+    }
 
 }

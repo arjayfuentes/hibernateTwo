@@ -1,9 +1,15 @@
 package com.exercise.hibernate2.core;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import com.exercise.hibernate2.core.ContactType;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE ,region="Contact")
 @Entity
 @Table(name = "Contact")
 public class Contact extends PersistentObject{

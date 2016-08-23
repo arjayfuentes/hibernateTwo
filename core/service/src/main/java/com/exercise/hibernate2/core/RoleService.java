@@ -23,7 +23,7 @@ public class RoleService {
         }
     }
 
-    public List<Role> getPersonRoles(long personId) {
+    public Set<Role> getPersonRoles(long personId) {
         return roleDao.getPersonRoles(personId);
     }
 

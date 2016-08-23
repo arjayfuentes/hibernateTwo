@@ -13,8 +13,9 @@ public class ContactsDao {
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			String hql = "from Contact where personId = :id";
+			String hql = "from Contact where personId = :id order by id";
 			Query query = session.createQuery(hql);
+			query.setCacheable(true);
 			query.setParameter("id",personId);
 			contacts = query.list();
 			tx.commit();

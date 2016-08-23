@@ -16,9 +16,7 @@ public class PersonDao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Criteria criteria = session.createCriteria(Person.class);  
-    		criteria.add(Restrictions.eq("id",personId));
-    		person = (Person) criteria.uniqueResult();
+			person = (Person) session.get(Person.class,personId);
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
@@ -32,18 +30,15 @@ public class PersonDao {
 	public Address getPersonAddress(long personId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
+		Person person = null;
 		Address address = new Address();
 		try {
 			tx = session.beginTransaction();
-			Person person = (Person) session.get(Person.class, personId);
+			Criteria criteria = session.createCriteria(Person.class);
+			criteria.add(Restrictions.eq("id",personId))
+					.setCacheable(true);
+			person= (Person) criteria.uniqueResult();
 			address = person.getAddress();
-			long addressId = address.getId();
-			String hql = "from Address where id = :id";
-			Query query = session.createQuery(hql);
-			query.setParameter("id", addressId);
-			List<Address> addressList = new ArrayList<Address>();
-			addressList = query.list();
-			address = addressList.get(0);
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) tx.rollback();
@@ -61,11 +56,11 @@ public class PersonDao {
 		try {
 			tx = session.beginTransaction();
 			Criteria criteria = session.createCriteria(Person.class);
-
-			if (order.equals("last_name")) {
-				criteria.addOrder(Order.asc("last_name"));
-			} else if (order.equals("date_hired")) {
-				criteria.addOrder(Order.asc("date_hired"));
+			criteria.setCacheable(true);
+			if (order.equals("lastName")) {
+				criteria.addOrder(Order.asc("lastName"));
+			} else if (order.equals("dateHired")) {
+				criteria.addOrder(Order.asc("dateHired"));
 			} else {
 				criteria.addOrder(Order.asc("id"));
 			}
@@ -75,23 +70,6 @@ public class PersonDao {
 			if (tx != null) tx.rollback();
 			e.printStackTrace();
 		} finally {
-			session.close();
-		}
-		return persons;
-	}
-
-	public List<Person> getPersons(){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = null;
-		List<Person> persons = new ArrayList<>();
-		try{
-			tx = session.beginTransaction();
-			persons = session.createQuery("from Person").list();
-			tx.commit();
-		}catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace();
-		}finally {
 			session.close();
 		}
 		return persons;
@@ -150,8 +128,7 @@ public class PersonDao {
 			person.setEmployed(updatedPerson.getEmployed());
 			person.setGwa(updatedPerson.getGwa());
 			person.setDateHired(updatedPerson.getDateHired());
-			address = updatedPerson.getAddress();
-			person.setAddress(address);
+			person.setAddress(updatedPerson.getAddress());
 			session.merge(person);
 			tx.commit();
 		}catch (HibernateException e) {

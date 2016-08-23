@@ -1,14 +1,19 @@
 package com.exercise.hibernate2.core;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.hibernate.type.YesNoType;
-
 import java.util.Set;
 import java.util.Date;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import com.exercise.hibernate2.core.BooleanToStringConverter;
 
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE ,region="Person")
 @Entity
 @Table(name = "Person")
 public class Person extends PersistentObject
@@ -48,7 +53,7 @@ public class Person extends PersistentObject
 	@JoinColumn(name="personId")
 	private Set<Contact> contacts;
 
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL , fetch=FetchType.LAZY)
 	@JoinTable(name="person_role", joinColumns={ @JoinColumn (name="personId")}, inverseJoinColumns = {@JoinColumn(name="roleId")})
 	private Set<Role> roles;
 
