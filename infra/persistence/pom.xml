@@ -11,6 +11,63 @@
   <artifactId>persistence</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </configuration>
+        </plugin>
+    </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>nocache</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.driver_class>org.postgresql.Driver</db.driver_class>
+                <db.url>jdbc:postgresql://localhost/hibernatetwo</db.url>
+                <db.username>postgres</db.username>
+                <db.password>postgres</db.password>
+                <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
+                <db.show_sql>true</db.show_sql>
+                <db.use_second_level_cache>false</db.use_second_level_cache>
+                <db.use_query_cache>false</db.use_query_cache>
+                <db.provider_class>org.hibernate.cache.EhCacheProvider</db.provider_class>
+                <db.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</db.region.factory_class>
+                <db.ehcache.configurationResourceName>/com/exercise/hibernate2/infra/ehcache.xml</db.ehcache.configurationResourceName>
+            </properties>
+        </profile>
+        <profile>
+            <id>development</id>
+            <properties>
+                <db.driver_class>org.postgresql.Driver</db.driver_class>
+                <db.url>jdbc:postgresql://localhost/hibernatetwo</db.url>
+                <db.username>postgres</db.username>
+                <db.password>postgres</db.password>
+                <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
+                <db.show_sql>true</db.show_sql>
+                <db.use_second_level_cache>true</db.use_second_level_cache>
+                <db.use_query_cache>true</db.use_query_cache>
+                <db.provider_class>org.hibernate.cache.EhCacheProvider</db.provider_class>
+                <db.region.factory_class>org.hibernate.cache.ehcache.EhCacheRegionFactory</db.region.factory_class>
+                <db.ehcache.configurationResourceName>/com/exercise/hibernate2/infra/ehcache.xml</db.ehcache.configurationResourceName>
+            </properties>
+        </profile>
+    </profiles>
+
+
 
   <dependencies>
 	<dependency>

@@ -6,30 +6,19 @@
 <hibernate-configuration>
     <session-factory>
 
-        <!-- Connection settings -->
-        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost/hibernatetwo</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.connection.driver_class">${db.driver_class}</property>
+        <property name="hibernate.connection.url">${db.url}</property>
+        <property name="hibernate.connection.username">${db.username}</property>
+        <property name="hibernate.connection.password">${db.password}</property>
+        <property name="hibernate.dialect">${db.dialect}</property>
 
-        <!-- SQL dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="show_sql">${db.show_sql}</property>
+        <property name="hibernate.cache.use_second_level_cache">${db.use_second_level_cache}</property>
+        <property name="cache.provider_class">${db.provider_class}</property>
+        <property name="net.sf.ehcache.configurationResourceName">${db.ehcache.configurationResourceName}</property>
+        <property name="hibernate.cache.region.factory_class">${db.region.factory_class}</property>
+        <property name="hibernate.cache.use_query_cache">${db.use_query_cache}</property>
 
-
-        <!-- Enable Second Level Caching-->
-        <property name="hibernate.cache.use_second_level_cache">true</property>
-        <property name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
-        <property name="net.sf.ehcache.configurationResourceName">/com/exercise/hibernate2/infra/ehcache.xml</property>
-        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
-
-        <!-- caching query -->
-        <property name="hibernate.cache.use_query_cache">true</property>
-
-        <!-- Print executed SQL to stdout -->
-        <property name="show_sql">true</property>
-        <!--<property name="hibernate.hbm2ddl.auto">create</property>-->   
-
-        <!-- Entity class -->
         <mapping class="com.exercise.hibernate2.core.Person"/>
     	<mapping class="com.exercise.hibernate2.core.Address"/>
     	<mapping class="com.exercise.hibernate2.core.Contact"/>
