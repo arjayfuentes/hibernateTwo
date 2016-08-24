@@ -160,23 +160,6 @@ public class RoleDao {
     }
 
     //option 6
-    public void deleteRole(long roleId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            Role role = (Role) session.get(Role.class, roleId);
-            session.delete(role);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
-
-    //option 7
     public void updateRole(long roleId,String updatedRole) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;

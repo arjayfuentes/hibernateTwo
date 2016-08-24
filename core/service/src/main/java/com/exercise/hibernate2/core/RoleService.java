@@ -56,9 +56,6 @@ public class RoleService {
     }
 
     //option 6 done
-    public void deleteRole(long roleId) {
-        roleDao.deleteRole(roleId);
-    }
 
     public void updateRole(long roleId, String updatedRole) {
         roleDao.updateRole(roleId, updatedRole);

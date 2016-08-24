@@ -520,22 +520,6 @@ public class Options {
     }
 
     //option 6
-    public void deleteRole() {
-        List<Role> roles = roleService.getRoles();
-        if (roles.size() != 0) {
-            viewRoles();
-            long roleId = roleService.checkInputRole("Enter roleId you want to delete");
-            if (check.inputYesOrNo("Are you sure you want to delete this role?") == true) {
-                roleService.deleteRole(roleId);
-                System.out.println("\n\t  =========== UPDATED LIST OF ROLES =========\n");
-                viewRoles();
-            }
-        } else {
-            System.out.println("No roles in the database. Nothing to delete");
-        }
-    }
-
-    //option 7
     public void updateRole() {
         List<Role> roles = roleService.getRoles();
         if (roles.size() != 0) {

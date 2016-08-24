@@ -119,11 +119,10 @@ public class App{
 			System.out.println("\t  |    3  - Delete Role to Person          |");
 			System.out.println("\t  |    4  - View List of Roles             |");
 			System.out.println("\t  |    5  - Add Role to Database           |");
-			System.out.println("\t  |    6  - Delete Role in Database        |");
-			System.out.println("\t  |    7  - Update Role in Database        |");
-			System.out.println("\t  |    8  - Back to Main menu              |");
+			System.out.println("\t  |    6  - Update Role in Database        |");
+			System.out.println("\t  |    7  - Back to Main menu              |");
 			System.out.println("\t  ==========================================\n");
-			int choice = check.inputNumber("Role Choice ", 1, 9);
+			int choice = check.inputNumber("Role Choice ", 1, 7);
 			switch (choice) {
 				case 1:
 					options.viewPersonRoles();
@@ -141,9 +140,6 @@ public class App{
 					options.addRole();
 					break;
 				case 6:
-					options.deleteRole();
-					break;
-				case 7:
 					options.updateRole();
 					break;
 				default:

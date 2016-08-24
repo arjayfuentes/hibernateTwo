@@ -18,7 +18,7 @@
         <property name="net.sf.ehcache.configurationResourceName">${db.ehcache.configurationResourceName}</property>
         <property name="hibernate.cache.region.factory_class">${db.region.factory_class}</property>
         <property name="hibernate.cache.use_query_cache">${db.use_query_cache}</property>
-
+       <!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
         <mapping class="com.exercise.hibernate2.core.Person"/>
     	<mapping class="com.exercise.hibernate2.core.Address"/>
     	<mapping class="com.exercise.hibernate2.core.Contact"/>

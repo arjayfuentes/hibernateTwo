@@ -8,7 +8,7 @@ public abstract class PersistentObject implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
 
     public Long id;
 

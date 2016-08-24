@@ -57,7 +57,7 @@ public class Person extends PersistentObject
 	@JoinTable(name="person_role", joinColumns={ @JoinColumn (name="personId")}, inverseJoinColumns = {@JoinColumn(name="roleId")})
 	private Set<Role> roles;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="addressId")
 	private Address address;
 
