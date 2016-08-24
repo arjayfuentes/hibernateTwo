@@ -13,11 +13,11 @@ public class PersonService {
 
 
 	//option 1 done
-	public Person getPerson(long personId) {
+	public Person getPerson(String personId) {
 		return personDao.getPerson(personId);
 	}
 
-	public Address getPersonAddress(long personId){
+	public Address getPersonAddress(String personId){
 		return personDao.getPersonAddress(personId);
 	}
 
@@ -29,13 +29,13 @@ public class PersonService {
 	}
 
 	//option3 done
-	public void deletePerson(long personId){
+	public void deletePerson(String personId){
 		personDao.deletePerson(personId);
 	}
 
 
 	//option4
-	public void updatePerson(long personId, Person updatedPerson){
+	public void updatePerson(String personId, Person updatedPerson){
 		personDao.updatePerson(personId, updatedPerson);
 	}
 
@@ -52,7 +52,7 @@ public class PersonService {
 		return persons;
 	}
 
-	public boolean checkPersonIfExist(long personId){
+	public boolean checkPersonIfExist(String personId){
 		if(personDao.getPerson(personId)== null){
 			return false;
 		}
@@ -61,10 +61,10 @@ public class PersonService {
 		}
 	}
 
-	public long checkInputPerson(String message){
-		long personId= 0;
+	public String checkInputPerson(String message){
+		String personId= null;
 		do{
-			personId = check.inputIdNumber(message);
+			personId = check.inputIdPerson(message);
 			if(checkPersonIfExist(personId)==false){
 				System.out.print("Id number not exist! ");
 			}

@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class PersonDao {
 
-	public Person getPerson(long personId) {
+	public Person getPerson(String personId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Person person = null;
 		Transaction tx = null;
@@ -27,7 +27,7 @@ public class PersonDao {
 		return person;
 	}
 
-	public Address getPersonAddress(long personId) {
+	public Address getPersonAddress(String personId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		Person person = null;
@@ -57,6 +57,7 @@ public class PersonDao {
 			tx = session.beginTransaction();
 			Criteria criteria = session.createCriteria(Person.class);
 			criteria.setCacheable(true);
+			
 			if (order.equals("lastName")) {
 				criteria.addOrder(Order.asc("lastName"));
 			} else if (order.equals("dateHired")) {
@@ -92,7 +93,7 @@ public class PersonDao {
 	}
 
 	//option3 done
-	public void deletePerson(long personId) {
+	public void deletePerson(String personId) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
@@ -112,7 +113,7 @@ public class PersonDao {
 
 
 	//option 4
-	public void updatePerson(long personId, Person updatedPerson){
+	public void updatePerson(String personId, Person updatedPerson){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		Address address = null;

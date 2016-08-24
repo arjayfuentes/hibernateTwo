@@ -102,6 +102,20 @@ public class Validation {
 		return string;
 	}
 
+	public String inputIdPerson(String message){
+		System.out.print("Enter "+message+": ");
+		String string = read.nextLine();
+		while (string.length()==0){
+		   if(string.length()==0){
+		   System.out.print("Empty input. Re-enter "+message+": ");
+		   }
+		   string = read.nextLine();
+		}
+		string=string.trim();
+		string=StringUtils.capitalize(string);
+		return string;
+	}
+
 	public String inputEmail(){
 		EmailValidator emailValid = EmailValidator.getInstance();
 		boolean validEmail =false;

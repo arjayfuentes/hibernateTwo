@@ -8,11 +8,11 @@ public class ContactsService {
 	private Validation check = new Validation();
 
 	//option1 contacts
-  	public List<Contact> getContacts(long personId){
+  	public List<Contact> getContacts(String personId){
     	return contactsDao.getContacts(personId);
   	}
 
-	public boolean checkContactIfExist(long personId, long contactId){
+	public boolean checkContactIfExist(String personId, long contactId){
 		List<Contact> contacts = contactsDao.getContacts(personId);
 		boolean contactExist = false;
 		loop: for(Contact con : contacts){
@@ -25,7 +25,7 @@ public class ContactsService {
 	}
 
 	//option2 contacts
-  	public void addContact(long personId, Contact newContact){
+  	public void addContact(String personId, Contact newContact){
     	contactsDao.addContact(personId,newContact);
   	}
 
@@ -43,7 +43,7 @@ public class ContactsService {
 		return contactsDao.getContact(contactId);
 	}
 
-	public long checkInputContact(String message, long personId){
+	public long checkInputContact(String message, String personId){
 		long contactId= 0;
 		do{
 			contactId = check.inputIdNumber(message);

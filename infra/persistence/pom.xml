@@ -31,7 +31,7 @@
 
     <profiles>
         <profile>
-            <id>nocache</id>
+            <id>production</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -41,7 +41,7 @@
                 <db.username>postgres</db.username>
                 <db.password>postgres</db.password>
                 <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
-                <db.show_sql>true</db.show_sql>
+                <db.show_sql>false</db.show_sql>
                 <db.use_second_level_cache>false</db.use_second_level_cache>
                 <db.use_query_cache>false</db.use_query_cache>
                 <db.provider_class>org.hibernate.cache.EhCacheProvider</db.provider_class>

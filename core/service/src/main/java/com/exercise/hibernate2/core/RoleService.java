@@ -23,15 +23,15 @@ public class RoleService {
         }
     }
 
-    public Set<Role> getPersonRoles(long personId) {
+    public Set<Role> getPersonRoles(String personId) {
         return roleDao.getPersonRoles(personId);
     }
 
-    public Role getPersonRole(long personId, long roleId) {
+    public Role getPersonRole(String personId, long roleId) {
         return roleDao.getPersonRole(personId, roleId);
     }
 
-    public boolean checkPersonRoleIfExist(long personId, long roleId) {
+    public boolean checkPersonRoleIfExist(String personId, long roleId) {
         if (roleDao.getPersonRole(personId, roleId) == null) {
             return false;
         } else {
@@ -40,12 +40,12 @@ public class RoleService {
     }
 
     //option 2 done
-    public void addPersonRole(long personId, Role role) {
+    public void addPersonRole(String personId, Role role) {
         roleDao.addPersonRole(personId, role);
     }
 
     //option 3 done
-    public void deletePersonRole(long personId, long roleId) {
+    public void deletePersonRole(String personId, long roleId) {
         roleDao.deletePersonRole(personId, roleId);
     }
 
@@ -72,7 +72,7 @@ public class RoleService {
         return id;
     }
 
-    public long checkInputRolePerson(String message, long personId){
+    public long checkInputRolePerson(String message, String personId){
         long roleId = 0;
         do{
             roleId = check.inputIdNumber(message);

@@ -11,13 +11,19 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 import com.exercise.hibernate2.core.BooleanToStringConverter;
+import com.exercise.hibernate2.*;
 
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE ,region="Person")
 @Entity
 @Table(name = "Person")
-public class Person extends PersistentObject
+public class Person implements Serializable
 {
+	@Id
+	@GenericGenerator(name = "custom_id", strategy = "com.exercise.hibernate2.CustomPersonId")
+	@GeneratedValue(generator = "custom_id")
+	@Column(name = "id")
+	private String id;
 
 	@Column(name = "firstName")
 	private String firstName;
@@ -77,6 +83,14 @@ public class Person extends PersistentObject
 		this.dateHired=dateHired;
 		this.address=address;
 	}
+
+	public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
 	public String getFirstName() {
 		return firstName;

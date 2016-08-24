@@ -7,7 +7,7 @@ import com.exercise.hibernate2.HibernateUtil;
 public class ContactsDao {
 
 	//option 1
-	public List<Contact> getContacts(long personId){
+	public List<Contact> getContacts(String personId){
 		List <Contact> contacts = new ArrayList<Contact>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -29,7 +29,7 @@ public class ContactsDao {
 	}
 
 	//contacts option 2
-	public void addContact(long personId, Contact newContact){
+	public void addContact(String personId, Contact newContact){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try{

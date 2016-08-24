@@ -54,7 +54,7 @@ public class RoleDao {
         return role;
     }
 
-    public Set <Role> getPersonRoles(long personId) {
+    public Set <Role> getPersonRoles(String personId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         Set <Role> roles = new HashSet<>();
@@ -75,7 +75,7 @@ public class RoleDao {
         return roles;
     }
 
-    public Role getPersonRole(long personId, long roleId) {
+    public Role getPersonRole(String personId, long roleId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         Set<Role> personRoles = null;
@@ -101,7 +101,7 @@ public class RoleDao {
     }
 
     //option2 done
-    public void addPersonRole(long personId, Role role) {
+    public void addPersonRole(String personId, Role role) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -118,7 +118,7 @@ public class RoleDao {
     }
 
     //option 3 done
-    public void deletePersonRole(long personId, long roleId) {
+    public void deletePersonRole(String personId, long roleId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         Set<Role> personRoles = null;

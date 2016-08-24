@@ -3,6 +3,7 @@ package com.exercise.hibernate2;
 import com.exercise.hibernate2.core.*;
 
 import java.util.*;
+import java.text.SimpleDateFormat;
 
 public class Options {
 
@@ -19,7 +20,7 @@ public class Options {
     public void viewPerson(){
         if(personService.getPersons("personId").size()!=0) {
             displayPersons();
-            long personId = personService.checkInputPerson("personId you want to view");
+            String personId = personService.checkInputPerson("personId you want to view");
             if (personService.checkPersonIfExist(personId) == true) {
                 displayPersonInfo(personId);
                 displayPersonAddress(personId);
@@ -52,7 +53,7 @@ public class Options {
     public void deletePerson(){
         if(personService.getPersons("personId").size()!=0) {
             displayPersons();
-            long personId = personService.checkInputPerson("personId you want to delete");
+            String personId = personService.checkInputPerson("personId you want to delete");
             if(check.inputYesOrNo("Are you sure you want to delete this person?")==true){
                 personService.deletePerson(personId);
                 System.out.println("Person successfully deleted");
@@ -69,7 +70,7 @@ public class Options {
     public void updatePerson(){
         if(personService.getPersons("personId").size()!=0) {
             displayPersons();
-            long personId = personService.checkInputPerson("personId you want to update");
+            String personId = personService.checkInputPerson("personId you want to update");
             displayPersonInfo(personId);
             displayPersonAddress(personId);
             Person updatedPerson = personService.getPerson(personId);
@@ -164,31 +165,32 @@ public class Options {
             System.out.print("\n\t  ==========================================\n");
 		}
 		else{
-			System.out.println("\n\t  ============= LIST OF PERSONS ============");
-			System.out.println("\t  |  Person ID   First Name   Last Name    |");
-			System.out.println("\t  ------------------------------------------");
+			System.out.println("\n\t  =============== LIST OF PERSONS ============");
+			System.out.println("\t  |  Person ID   First Name   Last Name      |");
+			System.out.println("\t  -------------------------------------------");
 			for(Person person : personList){
-				System.out.printf ("\t  |     %-10s%-12s%-13s%-1s\n",person.getId(),person.getFirstName(),person.getLastName(),"|");
+				System.out.printf ("\t  |  %-15s%-12s%-13s%-1s\n",person.getId(),person.getFirstName(),person.getLastName(),"|");
 			}
-			System.out.println("\t  ==========================================\n");
+			System.out.println("\t  ============================================\n");
 		}
 	}
 
 	public void displayPersonsList(List<Person> persons){
-		System.out.println("\n   ==============================================================================================================================================");
-		System.out.printf("   | %-3s|  %-12s|  %-12s|  %-12s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s| %-12s|\n","ID","First Name","Middle Name","Last Name","Suffix","Title","Date of Birth","Employed?","GWA","Date Hired","Address Id");
-		System.out.println("   ----------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n===================================================================================================================================================");
+		System.out.printf("| %-11s|  %-11s|  %-11s|  %-11s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s| %-12s|\n","ID","First Name","Middle Name","Last Name","Suffix","Title","Date of Birth","Employed?","GWA","Date Hired","Address Id");
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------");
 		for (Person p : persons){
-			System.out.printf("   | %-3s|  %-12s|  %-12s|  %-12s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s|    %-9s|\n",p.getId(),p.getFirstName(),p.getMiddleName(),p.getLastName(),p.getSuffix(),p.getTitle(),p.getBirthDate(),p.getEmployed() == true ? "Yes":"No",p.getGwa(),p.getDateHired(),p.getAddress().getId());
+			System.out.printf("| %-11s|  %-11s|  %-11s|  %-11s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s|    %-9s|\n",p.getId(),p.getFirstName(),p.getMiddleName(),p.getLastName(),p.getSuffix(),p.getTitle(),p.getBirthDate(),p.getEmployed() == true ? "Yes":"No",p.getGwa(),p.getDateHired(),p.getAddress().getId());
 		}
-		System.out.println("   ==============================================================================================================================================");
+		System.out.println("==================================================================================================================================================");
 	}
 
 
 	/*----------------------  display person's info -----------------*/
 
-  public void displayPersonInfo(long personId){
+  public void displayPersonInfo(String personId){
     Person person = personService.getPerson(personId);
+    SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
     System.out.println("\n\t  ============ PERSON'S INFORMATION ============");
     System.out.println("\t  |                                            |");
     System.out.printf("\t  |  %-18s : %-20s %-1s\n","First Name",person.getFirstName(),"|");
@@ -196,14 +198,14 @@ public class Options {
     System.out.printf("\t  |  %-18s : %-20s %-1s\n","Last Name",person.getLastName(),"|");
     System.out.printf("\t  |  %-18s : %-20s %-1s\n","Suffix",person.getSuffix(),"|");
     System.out.printf("\t  |  %-18s : %-20s %-1s\n","Title",person.getTitle(),"|");
-    System.out.printf("\t  |  %-18s : %-20s %-1s\n","Date of Birth",person.getBirthDate(),"|");
+    System.out.printf("\t  |  %-18s : %-20s %-1s\n","Date of Birth",formatter.format(person.getBirthDate()),"|");
     System.out.printf("\t  |  %-18s : %-20s %-1s\n","Employment Status",person.getEmployed()==true ? "Employed" : "Not Employed","|");
     System.out.printf("\t  |  %-18s : %-20s %-1s\n","GWA",person.getGwa(),"|");
-    System.out.printf("\t  |  %-18s : %-20s %-1s\n","Date Hired",person.getDateHired(),"|");
+    System.out.printf("\t  |  %-18s : %-20s %-1s\n","Date Hired",formatter.format(person.getDateHired()),"|");
     System.out.println("\t  ==============================================");
   }
 
-  public void displayPersonAddress(long personId){
+  public void displayPersonAddress(String personId){
     Address address = personService.getPersonAddress(personId);
     System.out.println("\n\t  =============== PERSON'S ADDRESS =============");
     System.out.println("\t  |                                            |");
@@ -278,14 +280,14 @@ public class Options {
     public void viewContacts(){
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to view contacts");
+            String personId = personService.checkInputPerson("id number of the person you want to view contacts");
             displayPersonContacts(personId);
         } else {
             System.out.println("No Existing Person in the Database. Add person first in person management");
         }
     }
 
-    public void displayPersonContacts(long personId){
+    public void displayPersonContacts(String personId){
         List<Contact> contacts = contactsService.getContacts(personId);
         if(contacts.size()==0){
             System.out.println("\n\t  ==========================================");
@@ -307,7 +309,7 @@ public class Options {
     public void addContact(){
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to view contacts");
+            String personId = personService.checkInputPerson("id number of the person you want to view contacts");
             displayPersonContacts(personId);
             int type = check.inputNumber(" type of contact 1-LANDLINE 2-MOBILE 3-EMAIL. ", 1, 3);
             Contact newContact = createContact(type);
@@ -348,7 +350,7 @@ public class Options {
     public void deleteContact() {
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to delete contacts");
+            String personId = personService.checkInputPerson("id number of the person you want to delete contacts");
             if (contactsService.getContacts(personId).size() != 0) {
                 displayPersonContacts(personId);
                 long contactId = contactsService.checkInputContact("contact Id to delete ", personId);
@@ -370,7 +372,7 @@ public class Options {
     public void updateContact() {
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to update contacts");
+            String personId = personService.checkInputPerson("id number of the person you want to update contacts");
             if (contactsService.getContacts(personId).size() != 0) {
                 displayPersonContacts(personId);
                 long contactId = contactsService.checkInputContact("contact Id to delete ", personId);
@@ -419,7 +421,7 @@ public class Options {
 
     /*------------------------- ROLE MENU ---------------------------- */
 
-    public void displayPersonRoles(long personId) {
+    public void displayPersonRoles(String personId) {
         Set<Role> personRoles = roleService.getPersonRoles(personId);
         if (personRoles.size() != 0) {
             System.out.println("\n\t  =============== PERSON'S ROLES ===============");
@@ -436,7 +438,7 @@ public class Options {
     public void viewPersonRoles() {
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to view roles");
+            String personId = personService.checkInputPerson("id number of the person you want to view roles");
             displayPersonRoles(personId);
         } else {
             System.out.println("No Existing Person in the Database. Add person first in person management");
@@ -447,7 +449,7 @@ public class Options {
     public void addPersonRole() {
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to add role");
+            String personId = personService.checkInputPerson("id number of the person you want to add role");
             if (roleService.getRoles().size() != 0) {
                 viewRoles();
                 long roleId = roleService.checkInputRole("role id to add");
@@ -466,7 +468,7 @@ public class Options {
     public void deletePersonRole() {
         if (personService.getPersons("personId").size() != 0) {
             displayPersons();
-            long personId = personService.checkInputPerson("id number of the person you want to delete role");
+            String personId = personService.checkInputPerson("id number of the person you want to delete role");
             if (roleService.getPersonRoles(personId).size() != 0) {
                 displayPersonRoles(personId);
                 long roleId = roleService.checkInputRolePerson("role id in the person", personId);
