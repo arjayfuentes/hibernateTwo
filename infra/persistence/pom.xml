@@ -38,8 +38,8 @@
             <properties>
                 <db.driver_class>org.postgresql.Driver</db.driver_class>
                 <db.url>jdbc:postgresql://localhost/hibernatetwo</db.url>
-                <db.username>postgres</db.username>
-                <db.password>postgres</db.password>
+                <db.username>arjay</db.username>
+                <db.password>shinge24</db.password>
                 <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
                 <db.show_sql>false</db.show_sql>
                 <db.use_second_level_cache>false</db.use_second_level_cache>
@@ -75,10 +75,5 @@
 		<artifactId>hibernate-ehcache</artifactId>
 		<version>4.3.7.Final</version>
 	</dependency>
-	 <dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-api</artifactId>
-	    <version>1.7.7</version>
-    </dependency>
   </dependencies>
 </project>

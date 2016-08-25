@@ -28,6 +28,7 @@ public class RoleService {
     }
 
     public Role getPersonRole(String personId, long roleId) {
+
         return roleDao.getPersonRole(personId, roleId);
     }
 

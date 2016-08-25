@@ -22,9 +22,7 @@ public class PersonService {
 	}
 
 	//option2 done
-	public void addPerson(Person person, Set<Contact> contacts , Set<Role> roles){
-		person.setContacts(contacts);
-		person.setRoles(roles);
+	public void addPerson(Person person){
 		personDao.addPerson(person);
 	}
 

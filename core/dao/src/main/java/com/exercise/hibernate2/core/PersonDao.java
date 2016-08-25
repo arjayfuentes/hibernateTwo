@@ -130,7 +130,7 @@ public class PersonDao {
 			person.setGwa(updatedPerson.getGwa());
 			person.setDateHired(updatedPerson.getDateHired());
 			person.setAddress(updatedPerson.getAddress());
-			session.merge(person);
+			session.update(person);
 			tx.commit();
 		}catch (HibernateException e) {
 			if (tx!=null) tx.rollback();

@@ -57,14 +57,14 @@ public class RoleDao {
     public Set <Role> getPersonRoles(String personId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
-        Set <Role> roles = new HashSet<>();
+        Set <Role> personRoles = new HashSet<Role>();
         try {
             tx = session.beginTransaction();
-            Criteria criteria = session.createCriteria(Person.class);
-            criteria.add(Restrictions.eq("id",personId))
+            Criteria criteria = session.createCriteria(Person.class)
+                    .add(Restrictions.eq("id",personId))
                     .setCacheable(true);
-            Person person= (Person) criteria.uniqueResult();
-            roles.addAll(person.getRoles());
+            Person person = (Person)criteria.uniqueResult();
+            personRoles.addAll(person.getRoles());
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -72,8 +72,10 @@ public class RoleDao {
         } finally {
             session.close();
         }
-        return roles;
+        return personRoles;
     }
+
+
 
     public Role getPersonRole(String personId, long roleId) {
         Session session = HibernateUtil.getSessionFactory().openSession();

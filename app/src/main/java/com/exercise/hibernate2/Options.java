@@ -24,8 +24,6 @@ public class Options {
             if (personService.checkPersonIfExist(personId) == true) {
                 displayPersonInfo(personId);
                 displayPersonAddress(personId);
-                displayPersonContacts(personId);
-                displayPersonRoles(personId);
             } else {
                 System.out.println("Person with id number " + personId + " not exist.");
             }
@@ -41,9 +39,7 @@ public class Options {
     public void addPerson(){
         displayPersons();
         Person person = addPersonInfo();
-        Set<Contact> contacts = addContactsNewPerson();
-        Set <Role> roles = addRolesNewPerson();
-		personService.addPerson(person,contacts,roles);
+		personService.addPerson(person);
         System.out.println("Person successfully added");
         System.out.println("\n\t  ============== UPDATED LIST ==============");
         displayPersons();
@@ -176,13 +172,14 @@ public class Options {
 	}
 
 	public void displayPersonsList(List<Person> persons){
-		System.out.println("\n===================================================================================================================================================");
-		System.out.printf("| %-11s|  %-11s|  %-11s|  %-11s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s| %-12s|\n","ID","First Name","Middle Name","Last Name","Suffix","Title","Date of Birth","Employed?","GWA","Date Hired","Address Id");
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+		System.out.println("\n\t====================================================================================================================================================");
+		System.out.printf("\t| %-12s|  %-11s|  %-12s|  %-11s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s| %-11s|\n","ID","First Name","Middle Name","Last Name","Suffix","Title","Date of Birth","Employed?","GWA","Date Hired","Address Id");
+		System.out.println("\t----------------------------------------------------------------------------------------------------------------------------------------------------");
 		for (Person p : persons){
-			System.out.printf("| %-11s|  %-11s|  %-11s|  %-11s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s|    %-9s|\n",p.getId(),p.getFirstName(),p.getMiddleName(),p.getLastName(),p.getSuffix(),p.getTitle(),p.getBirthDate(),p.getEmployed() == true ? "Yes":"No",p.getGwa(),p.getDateHired(),p.getAddress().getId());
+			System.out.printf("\t| %-12s|  %-11s|  %-12s|  %-11s|  %-8s|  %-7s|  %-15s|  %-11s|  %-6s|  %-12s|    %-8s|\n",p.getId(),p.getFirstName(),p.getMiddleName(),p.getLastName(),p.getSuffix(),p.getTitle(),formatter.format(p.getBirthDate()),p.getEmployed() == true ? "Yes":"No",p.getGwa(),formatter.format(p.getDateHired()),p.getAddress().getId());
 		}
-		System.out.println("==================================================================================================================================================");
+		System.out.println("\t===================================================================================================================================================");
 	}
 
 
@@ -230,17 +227,14 @@ public class Options {
         Date birthDate = check.inputDate("Date of Birth");
         Boolean employed = check.inputEmployed("Currently Employed?");
         float gwa = check.inputGwa();
-        Date dateHired=null;
-        if(employed==true){
-         dateHired = check.inputDate("Date hired");
-        }
-        else{
-            dateHired=null;
-        }
+        Date dateHired = check.inputDate("Date hired");
         Address address = addAddressInfo();
 
+        Set<Contact> contacts = addContactsNewPerson();
+        Set<Role> roles = addRolesNewPerson();
+
         Person person = new Person(firstName, middleName,lastName, suffix, title,
-        birthDate,employed,gwa, dateHired, address);
+        birthDate,employed,gwa, dateHired, address,contacts, roles);
         return person;
 	}
 
@@ -422,7 +416,7 @@ public class Options {
     /*------------------------- ROLE MENU ---------------------------- */
 
     public void displayPersonRoles(String personId) {
-        Set<Role> personRoles = roleService.getPersonRoles(personId);
+        Set<Role>  personRoles= roleService.getPersonRoles(personId);
         if (personRoles.size() != 0) {
             System.out.println("\n\t  =============== PERSON'S ROLES ===============");
             for (Role r : personRoles) {

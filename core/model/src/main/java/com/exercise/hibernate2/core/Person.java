@@ -59,18 +59,18 @@ public class Person implements Serializable
 	@JoinColumn(name="personId")
 	private Set<Contact> contacts;
 
-	@ManyToMany(cascade=CascadeType.ALL , fetch=FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="person_role", joinColumns={ @JoinColumn (name="personId")}, inverseJoinColumns = {@JoinColumn(name="roleId")})
 	private Set<Role> roles;
 
-	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="addressId")
 	private Address address;
 
 	public Person(){}
 
 	public Person(String firstName, String middleName,String lastName, String suffix, String title,
-					Date birthDate,Boolean employed,float gwa, Date dateHired, Address address){
+					Date birthDate,Boolean employed,float gwa, Date dateHired, Address address , Set<Contact> contacts,Set<Role> roles){
 
 		this.firstName=firstName;
 		this.middleName=middleName;
@@ -82,6 +82,8 @@ public class Person implements Serializable
 		this.gwa=gwa;
 		this.dateHired=dateHired;
 		this.address=address;
+		this.roles = roles;
+		this.contacts= contacts;
 	}
 
 	public String getId() {
